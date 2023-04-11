@@ -1,8 +1,14 @@
+/**
+ * @author Andrej Bartulin
+ * PROJECT: gog
+ * LICENSE: Public Domain
+ * DESCRIPTION: Entry point | Main file
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <assert.h>
 #include <inttypes.h>
 #include <time.h>
 
@@ -46,7 +52,7 @@ void random_mpz(mpz_t result, const mpz_t min, const mpz_t max)
     mpz_clear(range);
 }
 
-char* add_underscores(uint64_t number) 
+char *add_underscores(uint64_t number)
 {
     /* Convert the number to a string */
     char str[21]; /* maximum 20 characters for uint64_t plus null terminator */
@@ -57,19 +63,19 @@ char* add_underscores(uint64_t number)
 
     /* Calculate the number of underscores needed */
     int num_underscores = num_digits / 3;
-    if (num_digits % 3 == 0) 
+    if (num_digits % 3 == 0)
     {
         num_underscores--;
     }
 
     /* Allocate memory for the new string */
-    char* new_str = malloc(num_digits + num_underscores + 1); /* plus null terminator */
+    char *new_str = malloc(num_digits + num_underscores + 1); /* plus null terminator */
 
     /* Copy the digits and underscores into the new string */
     int j = 0;
-    for (int i = 0; i < num_digits; i++) 
+    for (int i = 0; i < num_digits; i++)
     {
-        if (i > 0 && (num_digits - i) % 3 == 0) 
+        if (i > 0 && (num_digits - i) % 3 == 0)
         {
             new_str[j] = '_';
             j++;
@@ -83,18 +89,18 @@ char* add_underscores(uint64_t number)
     return new_str;
 }
 
-char* mpz_separate(mpz_t num)
+char *mpz_separate(mpz_t num)
 {
-    char* num_str = mpz_get_str(NULL, 10, num);
+    char *num_str = mpz_get_str(NULL, 10, num);
     int num_len = strlen(num_str);
     int sep_len = num_len / 3 + ((num_len % 3) == 0 ? -1 : 0);
-    char* sep_str = malloc(num_len + sep_len + 1);
+    char *sep_str = malloc(num_len + sep_len + 1);
 
     int i = 0, j = 0;
-    for (; i < num_len; i++, j++) 
+    for (; i < num_len; i++, j++)
     {
         sep_str[j] = num_str[i];
-        if (((num_len - i - 1) % 3 == 0) && (i < num_len - 1)) 
+        if (((num_len - i - 1) % 3 == 0) && (i < num_len - 1))
         {
             sep_str[++j] = '_';
         }
@@ -108,9 +114,9 @@ char* mpz_separate(mpz_t num)
 
 void find_largest_number(mpz_t max_number, Card *cards, size_t num_cards)
 {
-    for (size_t i = 0; i < num_cards; i++) 
+    for (size_t i = 0; i < num_cards; i++)
     {
-        if (mpz_cmp(cards[i].number, max_number) > 0) 
+        if (mpz_cmp(cards[i].number, max_number) > 0)
         {
             mpz_set(max_number, cards[i].number);
         }
@@ -122,8 +128,8 @@ int main()
     int flag;
     uint64_t num_cards;
 
-    char* input = (char*)malloc(sizeof(char) * 1024);
-    char* yes_or_no = (char*)malloc(sizeof(char) * 1024);
+    char *input = (char *)malloc(sizeof(char) * 1024);
+    char *yes_or_no = (char *)malloc(sizeof(char) * 1024);
 
     printf("Enter number of cards: ");
     scanf("%1023s", input);
@@ -137,45 +143,18 @@ int main()
 
     /* ------------------------------------ */
 
-    mpz_t x, y, one, googol, googol_minus_2, x_plus_1, temporary_number;
-
-    mpz_init(x);
-    mpz_init(y);
+    mpz_t one, googol;
 
     mpz_init(one);
     mpz_init(googol);
 
-    mpz_init(googol_minus_2);
-    mpz_init(x_plus_1);
-    mpz_init(temporary_number);
-
-    /* ------------------------------------ */
-
     mpz_set_ui(one, 1);
     mpz_set_ui(googol, 18446744073709551615); /* googol is currently broken */
-
-    /* ------------------------------------ */
-
-    mpz_set_ui(temporary_number, 2);
-    mpz_sub(googol_minus_2, googol, temporary_number);
-    random_mpz(x, one, googol_minus_2);
-
-    mpz_set_ui(temporary_number, 1);
-    mpz_add(x_plus_1, x, temporary_number);
-    random_mpz(y, x_plus_1, googol);
-
-    /* ------------------------------------ */
-    mpz_clear(one);
-    mpz_clear(googol);
-
-    mpz_clear(googol_minus_2);
-    mpz_clear(x_plus_1);
-    mpz_clear(temporary_number);
 
     for (uint64_t i = 0; i < num_cards; i++)
     {
         mpz_init(cards[i].number);
-        random_mpz(cards[i].number, x, y);
+        random_mpz(cards[i].number, one, googol);
     }
 
     for (uint64_t i = 0; i < num_cards; i++)
@@ -194,10 +173,10 @@ int main()
 
             mpz_t max_number;
             mpz_init(max_number);
-            
-            for (size_t i = 0; i < num_cards; i++) 
+
+            for (size_t i = 0; i < num_cards; i++)
             {
-                if (mpz_cmp(cards[i].number, max_number) > 0) 
+                if (mpz_cmp(cards[i].number, max_number) > 0)
                 {
                     mpz_set(max_number, cards[i].number);
                 }
@@ -217,7 +196,7 @@ int main()
 
             mpz_clear(max_number);
             free(yes_or_no);
-            
+
             exit(0);
         }
     }
@@ -227,9 +206,9 @@ int main()
     mpz_t max_number;
     mpz_init(max_number);
 
-    for (size_t i = 0; i < num_cards; i++) 
+    for (size_t i = 0; i < num_cards; i++)
     {
-        if (mpz_cmp(cards[i].number, max_number) > 0) 
+        if (mpz_cmp(cards[i].number, max_number) > 0)
         {
             mpz_set(max_number, cards[i].number);
         }
@@ -249,8 +228,8 @@ int main()
 
     mpz_clear(max_number);
 
-    mpz_clear(x);
-    mpz_clear(y);
+    mpz_clear(one);
+    mpz_clear(googol);
 
     free(yes_or_no);
     return 0;
