@@ -1,3 +1,5 @@
+**PROJECT IS DONE**
+
 # gog
 
 The Game of Googol written in C
