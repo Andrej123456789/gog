@@ -14,11 +14,13 @@
 
 #include "gmp.h"
 
-typedef struct card_T
-{
-    mpz_t number;
-} Card;
-
+/**
+ * Return random number between a range [min, max>
+ * @param result variable where random number will be stored
+ * @param min minimum number
+ * @param max maximum range
+ * @return void
+ */
 void random_mpz(mpz_t result, const mpz_t min, const mpz_t max)
 {
     mpz_t range, random_number;
@@ -52,7 +54,12 @@ void random_mpz(mpz_t result, const mpz_t min, const mpz_t max)
     mpz_clear(range);
 }
 
-char *add_underscores(uint64_t number)
+/**
+ * Add underscores (digit separation) to uint64_t number
+ * @param number number to be separated
+ * @return char*
+ */
+char* add_underscores(uint64_t number)
 {
     /* Convert the number to a string */
     char str[21]; /* maximum 20 characters for uint64_t plus null terminator */
@@ -89,7 +96,12 @@ char *add_underscores(uint64_t number)
     return new_str;
 }
 
-char *mpz_separate(mpz_t num)
+/**
+ * Add underscores (digit separation) to GMP number
+ * @param num number to be separated
+ * @return char*
+ */
+char* separate_mpz(mpz_t num)
 {
     char *num_str = mpz_get_str(NULL, 10, num);
     int num_len = strlen(num_str);
@@ -112,94 +124,69 @@ char *mpz_separate(mpz_t num)
     return sep_str;
 }
 
-void find_largest_number(mpz_t max_number, Card *cards, size_t num_cards)
-{
-    for (size_t i = 0; i < num_cards; i++)
-    {
-        if (mpz_cmp(cards[i].number, max_number) > 0)
-        {
-            mpz_set(max_number, cards[i].number);
-        }
-    }
-}
-
 int main()
 {
-    int flag;
-    uint64_t num_cards;
-
-    char *input = (char *)malloc(sizeof(char) * 1024);
-    char *yes_or_no = (char *)malloc(sizeof(char) * 1024);
-
-    printf("Enter number of cards: ");
-    scanf("%1023s", input);
-
-    sscanf(input, "%" SCNu64, &num_cards); /* num_cards = strtoull(input, NULL, 0); */
-    free(input);
-
-    /* ------------------------------------ */
-
-    Card cards[num_cards];
-
-    /* ------------------------------------ */
+    /* ------------------------------------------ */
+    /*              Input numbers                 */
+    /* ------------------------------------------ */
 
     mpz_t one, googol;
+    uint16_t num_cards;
+
+    char num_cards_input[4];
+    char yes_or_no;
+
+    printf("Enter number of cards (1 - 999): ");
+    scanf("%3s", num_cards_input);
+    num_cards = atoi(num_cards_input);
+
+    mpz_init(googol);
+    printf("Enter maximum number (1 - googol): ");
+    gmp_scanf("%101Zd", googol);
+
+    /* ------------------------------------------ */
+    /*              Define array                  */
+    /* ------------------------------------------ */
+
+    mpz_t cards[num_cards];
+    uint16_t last_card_id = num_cards - 1; // card that player thinks it is the largest
+
+    /* ------------------------------------------ */
+    /*             Initialize numbers             */
+    /* ------------------------------------------ */
 
     mpz_init(one);
-    mpz_init(googol);
+    //mpz_init(googol);
 
     mpz_set_ui(one, 1);
-    mpz_set_ui(googol, 18446744073709551615); /* googol is currently broken */
+    // mpz_ui_pow_ui(googol, 10, 100);
 
     for (uint64_t i = 0; i < num_cards; i++)
     {
-        mpz_init(cards[i].number);
-        random_mpz(cards[i].number, one, googol);
+        mpz_init(cards[i]);
+        random_mpz(cards[i], one, googol);
     }
 
-    for (uint64_t i = 0; i < num_cards; i++)
+    /* ------------------------------------------ */
+    /*                Game loop                   */
+    /* ------------------------------------------ */
+
+    for (uint16_t i = 0; i < num_cards; i++)
     {
-        printf("Number on card %s is: %s\n", add_underscores(i), mpz_separate(cards[i].number));
-        printf("Are you quitting? [yes - 1 | no - 0]\n");
+        printf("Number on card %s is: %s\n", add_underscores(i), separate_mpz(cards[i]));
+        printf("Are you quitting? [yes - 1 | no - 0]: ");
 
-        int quit = 0;
-
-        scanf("%s", yes_or_no);
-        quit = atoi(yes_or_no);
-
-        if (quit == 1)
+        scanf(" %c", &yes_or_no);
+        if (yes_or_no == 'y' || yes_or_no == '1')
         {
-            printf("\nYou...\n");
-
-            mpz_t max_number;
-            mpz_init(max_number);
-
-            for (size_t i = 0; i < num_cards; i++)
-            {
-                if (mpz_cmp(cards[i].number, max_number) > 0)
-                {
-                    mpz_set(max_number, cards[i].number);
-                }
-            }
-
-            if (mpz_cmp(max_number, cards[i].number) > 0) /* +1 */
-            {
-                printf("...lost :( \n");
-                printf("Largest number is %s\n", mpz_separate(max_number));
-            }
-
-            else
-            {
-                printf("...won :) \n");
-                printf("Largest number is %s\n", mpz_separate(max_number));
-            }
-
-            mpz_clear(max_number);
-            free(yes_or_no);
-
-            exit(0);
+            last_card_id = i;
+            break;
         }
     }
+
+    /* ------------------------------------------ */
+    /*               Declare winner               */
+    /* ------------------------------------------ */
 
     printf("\nYou...\n");
 
@@ -208,22 +195,31 @@ int main()
 
     for (size_t i = 0; i < num_cards; i++)
     {
-        if (mpz_cmp(cards[i].number, max_number) > 0)
+        if (mpz_cmp(cards[i], max_number) > 0)
         {
-            mpz_set(max_number, cards[i].number);
+            mpz_set(max_number, cards[i]);
         }
     }
 
-    if (mpz_cmp(max_number, cards[num_cards - 1].number) > 0) /* +1 */
+    if (mpz_cmp(cards[last_card_id], max_number) < 0) // player's number is smaller than the largest number
     {
         printf("...lost :( \n");
-        printf("Largest number is %s\n", mpz_separate(max_number));
+        printf("Largest number is %s\n", separate_mpz(max_number));
     }
 
     else
     {
         printf("...won :) \n");
-        printf("Largest number is %s\n", mpz_separate(max_number));
+        printf("Largest number is %s\n", separate_mpz(max_number));
+    }
+
+    /* ------------------------------------------ */
+    /*             Free all variables             */
+    /* ------------------------------------------ */
+
+    for (size_t i = 0; i < num_cards; i++)
+    {
+        mpz_clear(cards[i]);
     }
 
     mpz_clear(max_number);
@@ -231,6 +227,5 @@ int main()
     mpz_clear(one);
     mpz_clear(googol);
 
-    free(yes_or_no);
     return 0;
 }

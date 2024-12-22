@@ -1,5 +1,3 @@
-**PROJECT IS DONE**
-
 # gog
 
 The Game of Googol written in C
@@ -23,11 +21,13 @@ Public Domain
 
 ### B
 
-- Run this command: `gcc -lgmp -g .o gog gog.c && ./gog`
+- Run this command: `gcc -o gog gog.c -lgmp && ./gog`
 
 ## Rules
 
-You have `x` numbers of cards. Each card have a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
+You have `x` number of cards. Each card have a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
+
+You can set maximum number for easier playing.
 
 Winner is person who finds largest number.
 
