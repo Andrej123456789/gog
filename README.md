@@ -9,8 +9,6 @@ Public Domain
 - [The Game You Quit - Vsauce2](https://www.youtube.com/watch?v=OeJobV4jJG0)
 - [GMP tutorial](https://home.cs.colorado.edu/~srirams/courses/csci2824-spr14/gmpTutorial.html)
 - [`Integer-Comparisons` GNU GMP documentation](https://gmplib.org/manual/Integer-Comparisons)
-- [3x](https://github.com/Andrej123456789/3x)
-- [ChatGPT](ai.com)
 
 ## Installation
 
