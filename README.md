@@ -23,7 +23,7 @@ GPL-2.0 license
 
 ## Rules
 
-You have `x` number of cards. Each card have a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
+There are `x` number of cards. Each card has a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
 
 You can set the maximum number to make the game easier.
 
