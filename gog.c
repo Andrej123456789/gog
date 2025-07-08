@@ -1,7 +1,7 @@
 /**
  * @author Andrej Bartulin
  * PROJECT: gog
- * LICENSE: Public Domain
+ * LICENSE: GPL-2.0 license
  * DESCRIPTION: Entry point | Main file
 */
 

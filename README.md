@@ -2,7 +2,7 @@
 
 The Game of Googol written in C
 
-Public Domain
+GPL-2.0 license
 
 ## Credits
 
