@@ -173,8 +173,14 @@ int main()
 
     for (uint16_t i = 0; i < num_cards; i++)
     {
-        printf("Number on card %s is: %s\n", add_underscores(i), separate_mpz(cards[i]));
+        char* underscored_text = add_underscores(i);
+        char* separated_text = separate_mpz(cards[i]);
+
+        printf("Number on card %s is: %s\n", underscored_text, separated_text);
         printf("Are you quitting? [yes - 1 | no - 0]: ");
+
+        free(underscored_text);
+        free(separated_text);
 
         scanf(" %c", &yes_or_no);
         if (yes_or_no == 'y' || yes_or_no == '1')
@@ -204,13 +210,21 @@ int main()
     if (mpz_cmp(cards[last_card_id], max_number) < 0) // player's number is smaller than the largest number
     {
         printf("...lost :( \n");
-        printf("Largest number is %s\n", separate_mpz(max_number));
+
+        char* separated_text = separate_mpz(max_number);
+        printf("Largest number is %s\n", separated_text);
+
+        free(separated_text);
     }
 
     else
     {
         printf("...won :) \n");
-        printf("Largest number is %s\n", separate_mpz(max_number));
+
+        char* separated_text = separate_mpz(max_number);
+        printf("Largest number is %s\n", separated_text);
+
+        free(separated_text);
     }
 
     /* ------------------------------------------ */
