@@ -14,6 +14,9 @@
 
 #include "gmp.h"
 
+/* Needed for random number generation */
+static gmp_randstate_t state;
+
 /**
  * Return random number between a range [min, max>
  * @param result variable where random number will be stored
@@ -23,33 +26,28 @@
  */
 void random_mpz(mpz_t result, const mpz_t min, const mpz_t max)
 {
-    mpz_t range, random_number;
+    static int initialized = 0;
 
+    /* Initialize and seed GMP state once */
+    if (!initialized)
+    {
+        gmp_randinit_mt(state);
+        srand((unsigned int)time(NULL));
+        unsigned long seed = ((unsigned long)rand() << 16) | rand();  // more bits for seed
+        gmp_randseed_ui(state, seed);
+        initialized = 1;
+    }
+
+    mpz_t range, random_number;
     mpz_init(range);
     mpz_init(random_number);
 
-    /* Calculate the range */
     mpz_sub(range, max, min);
 
-    /* Generate a random number within the range */
-    unsigned long seed;
-
-    gmp_randstate_t state;
-    gmp_randinit_mt(state);
-
-    FILE *urandom = fopen("/dev/urandom", "r");
-    fread(&seed, sizeof(seed), 1, urandom);
-
-    seed = (seed / rand()) / rand();
-    fclose(urandom);
-
-    gmp_randseed_ui(state, seed);
     mpz_urandomm(random_number, state, range);
 
-    /* Add the minimum value to the random number */
     mpz_add(result, random_number, min);
 
-    gmp_randclear(state);
     mpz_clear(random_number);
     mpz_clear(range);
 }
@@ -63,7 +61,7 @@ char* add_underscores(uint64_t number)
 {
     /* Convert the number to a string */
     char str[21]; /* maximum 20 characters for uint64_t plus null terminator */
-    sprintf(str, "%llu", number);
+    sprintf(str, "%lu", number);
 
     /* Number of digits in the string */
     int num_digits = strlen(str);
@@ -131,7 +129,7 @@ int main()
     /* ------------------------------------------ */
 
     mpz_t one, googol;
-    uint16_t num_cards;
+    uint16_t num_cards = 0;
 
     char num_cards_input[4];
     char yes_or_no;
@@ -140,15 +138,31 @@ int main()
     scanf("%3s", num_cards_input);
     num_cards = atoi(num_cards_input);
 
+    if (num_cards < 1)
+    {
+        printf("Minimum number of cards is 1!\n");
+        printf("Setting number of cards to 10.\n\n");
+
+        num_cards = 10;
+    }
+
     mpz_init(googol);
     printf("Enter maximum number (1 - googol): ");
     gmp_scanf("%101Zd", googol);
+
+    if (mpz_cmp_si(googol, 2) < 0)
+    {
+        printf("Minimum number is 2!\n");
+        printf("Setting number to 100.\n\n");
+
+        mpz_set_si(googol, 100);
+    }
 
     /* ------------------------------------------ */
     /*              Define array                  */
     /* ------------------------------------------ */
 
-    mpz_t cards[num_cards];
+    mpz_t* cards = calloc(num_cards, sizeof(mpz_t));
     uint16_t last_card_id = num_cards - 1; // card that player thinks it is the largest
 
     /* ------------------------------------------ */
@@ -235,6 +249,10 @@ int main()
     {
         mpz_clear(cards[i]);
     }
+
+    free(cards);
+
+    gmp_randclear(state);
 
     mpz_clear(max_number);
 
