@@ -6,6 +6,8 @@ GPL-2.0 license
 
 [v1.0.0](https://github.com/Andrej123456789/gog/releases/tag/v1.0.0)
 
+[v2.0.0](https://github.com/Andrej123456789/gog/releases/tag/v2.0.0)
+
 ## Credits
 
 - [The Game You Quit - Vsauce2](https://www.youtube.com/watch?v=OeJobV4jJG0)
