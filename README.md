@@ -25,7 +25,7 @@ GPL-2.0 license
 
 - Run this command: `make && ./executable/gog`
 
-**Notice for Windows users! Install GMP using vcpkg, x64 static version. Run CMake with the following argument: `-DGMP_ROOT="path_to_vcpkg/installed/x64-windows-static"`.**
+**Notice for Windows users! Install GMP using vcpkg, x64 static version. Run CMake with the following argument: `-DGMP_ROOT="path_to_vcpkg"`.**
 
 ## Rules
 
