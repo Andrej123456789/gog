@@ -4,8 +4,6 @@ The Game of Googol written in C.
 
 This game is related to the theory of [optimal stopping](https://en.wikipedia.org/wiki/Optimal_stopping).
 
-[Latest release - v4.0.0](https://github.com/Andrej123456789/gog/releases/tag/v4.0.0)
-
 ## Rules
 
 There are `x` number of cards. Each card has a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
@@ -46,10 +44,10 @@ Example: 10/e ≈ 4
 
 | Package: | Command:                                                                                                                      |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Git      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install git`</td><td>`pacman -S git`</td></tr></table>         |
-| Make     | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install make`</td><td>`pacman -S make`</td></tr></table>       |
-| GCC      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install gcc`</td><td>`pacman -S gcc`</td></tr></table>         |
-| GMP      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install libgmp3-dev`</td><td>`pacman -S gmp`</td></tr></table> |
+| git      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install git`</td><td>`pacman -S git`</td></tr></table>         |
+| make     | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install make`</td><td>`pacman -S make`</td></tr></table>       |
+| gcc      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install gcc`</td><td>`pacman -S gcc`</td></tr></table>         |
+| gmp      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install libgmp3-dev`</td><td>`pacman -S gmp`</td></tr></table> |
 
 ## Compiling & running
 
