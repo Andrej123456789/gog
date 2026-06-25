@@ -4,11 +4,7 @@ The Game of Googol written in C
 
 This game is related to the theory of [optimal stopping](https://en.wikipedia.org/wiki/Optimal_stopping).
 
-[v1.0.0](https://github.com/Andrej123456789/gog/releases/tag/v1.0.0)
-
-[v2.0.0](https://github.com/Andrej123456789/gog/releases/tag/v2.0.0)
-
-[v3.0.0](https://github.com/Andrej123456789/gog/releases/tag/v3.0.0)
+[Latest release - v4.0.0](https://github.com/Andrej123456789/gog/releases/tag/v4.0.0)
 
 ## Rules
 
