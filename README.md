@@ -4,6 +4,8 @@ The Game of Googol written in C.
 
 This game is related to the theory of [optimal stopping](https://en.wikipedia.org/wiki/Optimal_stopping).
 
+[Latest release - v4.0.0](https://github.com/Andrej123456789/gog/releases/tag/v4.0.0)
+
 ## Rules
 
 There are `x` number of cards. Each card has a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
