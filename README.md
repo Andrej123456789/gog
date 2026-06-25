@@ -16,18 +16,49 @@ GPL-2.0 license
 - [GMP tutorial](https://home.cs.colorado.edu/~srirams/courses/csci2824-spr14/gmpTutorial.html)
 - [`Integer-Comparisons` GNU GMP documentation](https://gmplib.org/manual/Integer-Comparisons)
 
-## Installation
+## Compile
 
-### A
+## Installing dependencies
 
-- Install GCC
-- Install GNU GMP library
+### Windows
 
-### B
+- Git
+- Visual Studio with C/C++ development extension
+- CMake
+- GMP (x64 static version from vcpkg)
 
-- Run this command: `make && ./executable/gog`
+### Linux
 
-**Notice for Windows users! Install GMP using vcpkg, x64 static version. Run CMake with the following argument: `-DGMP_ROOT="path_to_vcpkg"`.**
+| Package: | Command:                                                                                                                      |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Git      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install git`</td><td>`pacman -S git`</td></tr></table>         |
+| Make     | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install make`</td><td>`pacman -S make`</td></tr></table>       |
+| GCC      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install gcc`</td><td>`pacman -S gcc`</td></tr></table>         |
+| GMP      | <table><tr><th>Debian</th><th>Arch Linux</th></tr><td>`apt-get install libgmp3-dev`</td><td>`pacman -S gmp`</td></tr></table> |
+
+## Compiling & running
+
+### Windows
+
+| Number: | Step:                                                          | Command:                                           |
+| ------- | -------------------------------------------------------------- | -------------------------------------------------- |
+| 1       | Clone a repository                                             | `git clone https://github.com/Andrej123456789/gog` |
+| 2       | Enter the `gog` directory                                      | `cd gog`                                           |
+| 3       | Create the `build` directory and enter it                      | `mkdir build && cd build`                          |
+| 4       | Run CMake                                                      | `cmake .. -DGMP_ROOT="path_to_vcpkg"`              |
+| 5       | Open Visual Studio and build the solution                      |                                                    |
+| 6       | Run the program located inside the `Debug` or `Release` folder | `.\Debug\gog.exe` or `.\Release\gog.exe`           |
+
+**Notice! In order to not use Visual Studio (you still need to have it installed), you can use nmake. Run CMake with the following command: `cmake -G "NMake Makefiles" -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DGMP_ROOT="path_to_vcpkg" ..`. To compile the project use command `nmake`.**
+
+### Linux
+
+| Number: | Step:                     | Command:                                           |
+| ------- | ------------------------- | -------------------------------------------------- |
+| 1       | Clone a repository        | `git clone https://github.com/Andrej123456789/gog` |
+| 2       | Enter the `gog` directory | `cd gog`                                           |
+| 3       | Compile                   | `make`                                             |
+| 4       | Run the program           | `make run`                                         |
 
 ## Rules
 
