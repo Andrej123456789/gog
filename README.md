@@ -4,8 +4,6 @@ The Game of Googol written in C.
 
 This game is related to the theory of [optimal stopping](https://en.wikipedia.org/wiki/Optimal_stopping).
 
-[Latest release - v4.0.0](https://github.com/Andrej123456789/gog/releases/tag/v4.0.0)
-
 ## Rules
 
 There are `x` number of cards. Each card has a number, between `1` (one) and `10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000` (googol).
@@ -64,7 +62,7 @@ Example: 10/e ≈ 4
 | 5       | Open Visual Studio and build the solution                      |                                                    |
 | 6       | Run the program located inside the `Debug` or `Release` folder | `.\Debug\gog.exe` or `.\Release\gog.exe`           |
 
-**Notice! In order to not use Visual Studio (you still need to have it installed), you can use nmake. Run CMake with the following command: `cmake -G "NMake Makefiles" -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DGMP_ROOT="path_to_vcpkg" ..`. To compile the project use command `nmake`.**
+**Notice! In order to not use Visual Studio (you still need to have it installed), you can use nmake. Run CMake with the following command: `cmake -G "NMake Makefiles" -DCMAKE_C_COMPILER=cl -DCMAKE_CXX_COMPILER=cl -DGMP_ROOT="path_to_vcpkg" ..`. To compile the project use command `nmake`. You need to be inside *Developer Command Prompt* or *Developer Powershell*.**
 
 ### Linux
 
