@@ -61,7 +61,7 @@ char* add_underscores(uint64_t number)
 {
     /* Convert the number to a string */
     char str[21]; /* maximum 20 characters for uint64_t plus null terminator */
-    sprintf(str, "%llu", number);
+    sprintf(str, "%lu", number);
 
     /* Number of digits in the string */
     int num_digits = (int)strlen(str);
