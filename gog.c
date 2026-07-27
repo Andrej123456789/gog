@@ -64,7 +64,7 @@ char* add_underscores(uint64_t number)
     sprintf(str, "%lu", number);
 
     /* Number of digits in the string */
-    int num_digits = (int)strlen(str);
+    int num_digits = strlen(str);
 
     /* Calculate the number of underscores needed */
     int num_underscores = num_digits / 3;
@@ -102,7 +102,7 @@ char* add_underscores(uint64_t number)
 char* separate_mpz(mpz_t num)
 {
     char *num_str = mpz_get_str(NULL, 10, num);
-    int num_len = (int)strlen(num_str);
+    int num_len = strlen(num_str);
     int sep_len = num_len / 3 + ((num_len % 3) == 0 ? -1 : 0);
     char *sep_str = malloc(num_len + sep_len + 1);
 
@@ -136,7 +136,7 @@ int main()
 
     printf("Enter number of cards (1 - 999): ");
     scanf("%3s", num_cards_input);
-    num_cards = (uint16_t)atoi(num_cards_input);
+    num_cards = atoi(num_cards_input);
 
     if (num_cards < 1)
     {
