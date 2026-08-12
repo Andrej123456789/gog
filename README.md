@@ -31,7 +31,7 @@ Example: 10/e ≈ 4
 
 </details>
 
-## Compile
+## Build & run instructions
 
 ## Installing dependencies
 
@@ -58,7 +58,7 @@ Example: 10/e ≈ 4
 | Number: | Step:                                                          | Command:                                           |
 | ------- | -------------------------------------------------------------- | -------------------------------------------------- |
 | 1       | Clone a repository                                             | `git clone https://github.com/Andrej123456789/gog` |
-| 2       | Enter the `gog` directory                                      | `cd gog`                                           |
+| 2       | Enter the `src` directory                                      | `cd gog\src`                                       |
 | 3       | Create the `build` directory and enter it                      | `mkdir build && cd build`                          |
 | 4       | Run CMake                                                      | `cmake .. -DGMP_ROOT="path_to_vcpkg"`              |
 | 5       | Open Visual Studio and build the solution                      |                                                    |
@@ -71,7 +71,7 @@ Example: 10/e ≈ 4
 | Number: | Step:                     | Command:                                           |
 | ------- | ------------------------- | -------------------------------------------------- |
 | 1       | Clone a repository        | `git clone https://github.com/Andrej123456789/gog` |
-| 2       | Enter the `gog` directory | `cd gog`                                           |
+| 2       | Enter the `src` directory | `cd gog/src`                                       |
 | 3       | Compile                   | `make`                                             |
 | 4       | Run the program           | `make run`                                         |
 
